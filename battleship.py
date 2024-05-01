@@ -76,7 +76,7 @@ def setships(stdscr):
             stdscr.addstr(1, 0, "Invalid number of battleships.\n")
             stdscr.refresh()
 
-    # Optionally, display a confirmation message or the inputs
+    #  display a confirmation message or the inputs
     stdscr.clear()
     stdscr.addstr(0, 0, f"Cruisers: {cruisers}, Destroyers: {destroyers}, Battleships: {battleships}")
     stdscr.refresh()
