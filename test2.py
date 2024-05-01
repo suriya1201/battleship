@@ -1,11 +1,14 @@
 import curses
-import os
+
 
 
 alphabets = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"]
-
+ORIENTATION ="horizontal"
+SHIP_ROW =0 
+SHIP_COLUMN=0
 
 def main(stdscr):
+
     #curses.curs_set(0)  # Hide the cursor
     stdscr.clear()  # Clear the terminal screen
     stdscr.refresh()
@@ -188,7 +191,7 @@ def createcruisers(Player, shipboard, stdscr):
     return shipboard
 def createdestroyers(Player, shipboard, stdscr):
     i = 1
-    validoptions = createvalidoptions()
+    
     ship_row = 0
     ship_col = 0
     orientation = 'horizontal' # Start with horizontal orientation
@@ -263,7 +266,6 @@ def createdestroyers(Player, shipboard, stdscr):
 
 def createbattleships(Player, shipboard, stdscr):
     i = 1
-    validoptions = createvalidoptions()
     ship_row = 0
     ship_col = 0
     orientation = 'horizontal' # Start with horizontal orientation
