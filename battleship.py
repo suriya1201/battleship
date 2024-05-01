@@ -1,21 +1,22 @@
 import curses
-
+import io
+import sys
 
 
 alphabets = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"]
 
 
+
+
 def main(stdscr):
     # Turn on the visibility of typed characters
     curses.echo()
-    #curses.curs_set(0)  # Hide the cursor
     stdscr.clear()  # Clear the terminal screen
     stdscr.refresh()
-
     # Setting the environment
     setrowandcolumn(stdscr)
     setships(stdscr)
-
+    
     # Creating boards for both players
     player1shipboard = createshipboard("Player 1", stdscr)
     player1attackboard = createboard()
@@ -30,7 +31,8 @@ def main(stdscr):
 
 
 def setships(stdscr):
-    global cruisers,battleships,destroyers
+    global cruisers, battleships, destroyers
+
     while True:
         stdscr.clear() # Clear the screen at the beginning of each input prompt
         stdscr.addstr(0, 0, "Enter number of cruisers (1 to 5): ")
