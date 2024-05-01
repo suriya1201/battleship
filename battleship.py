@@ -6,7 +6,8 @@ alphabets = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"]
 
 
 def main(stdscr):
-
+    # Turn on the visibility of typed characters
+    curses.echo()
     #curses.curs_set(0)  # Hide the cursor
     stdscr.clear()  # Clear the terminal screen
     stdscr.refresh()
@@ -23,6 +24,10 @@ def main(stdscr):
 
     # Start the game
     gamestart(player1shipboard, player1attackboard, player2shipboard, player2attackboard, stdscr)
+
+
+
+
 
 def setships(stdscr):
     global cruisers,battleships,destroyers
@@ -187,6 +192,8 @@ def createcruisers(Player, shipboard, stdscr):
                 stdscr.getch() # Wait for user to acknowledge the error
 
     return shipboard
+
+
 def createdestroyers(Player, shipboard, stdscr):
     i = 1
     
@@ -261,6 +268,7 @@ def createdestroyers(Player, shipboard, stdscr):
                 stdscr.getch() # Wait for user to acknowledge the error
 
     return shipboard
+
 
 def createbattleships(Player, shipboard, stdscr):
     i = 1
@@ -338,6 +346,7 @@ def createbattleships(Player, shipboard, stdscr):
 
     return shipboard
 
+
 def createshipboard(Player,stdscr):
     stdscr.clear()
     shipboard=createboard() 
@@ -376,7 +385,7 @@ def PlayerAttack(player, playershipboard, playerattackboard, opponentshipboard, 
         # Get user input for the target location
         stdscr.addstr(24, 0, "Enter a location to attack: ")
         stdscr.refresh()
-        Target = stdscr.getstr().decode().strip()
+        Target = stdscr.getstr().decode().strip().upper() # Convert input to uppercase
 
         if Target not in validoptions:
             stdscr.addstr(25, 0, "Invalid Target")
@@ -395,16 +404,14 @@ def PlayerAttack(player, playershipboard, playerattackboard, opponentshipboard, 
                 stdscr.getch() # Wait for user to press a key
                 opponentshipboard[alphabets.index(Target[0])][int(Target[-1])-1] = "0"
                 playerattackboard[alphabets.index(Target[0])][int(Target[-1])-1] = "H"
-                if OpponentAlive(opponentshipboard, player) != "ongoing":
-                    Attacking = False
+                
             elif TargetStatus == "X":
                 stdscr.addstr(25, 0, "You have hit your target.")
                 stdscr.refresh()
                 stdscr.getch() # Wait for user to press a key
                 opponentshipboard[alphabets.index(Target[0])][int(Target[-1])-1] = "0"
                 playerattackboard[alphabets.index(Target[0])][int(Target[-1])-1] = "H"
-                if OpponentAlive(opponentshipboard, player) != "ongoing":
-                    Attacking = False
+                
             else:
                 stdscr.addstr(25, 0, "You missed...")
                 stdscr.refresh()
@@ -412,6 +419,8 @@ def PlayerAttack(player, playershipboard, playerattackboard, opponentshipboard, 
                 playerattackboard[alphabets.index(Target[0])][int(Target[-1])-1] = "M"
                 Attacking = False
     return OpponentAlive(opponentshipboard, player)
+
+
 
 def OpponentAlive(opponentshipboard, player):
     alive = False
@@ -424,6 +433,7 @@ def OpponentAlive(opponentshipboard, player):
         return "ongoing"
     else:
         return player
+
 
 def gamestart(player1shipboard, player1attackboard, player2shipboard, player2attackboard, stdscr):
     status = "ongoing"
