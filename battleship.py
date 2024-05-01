@@ -389,7 +389,15 @@ def PlayerAttack(player, playershipboard, playerattackboard, opponentshipboard, 
                 stdscr.addstr(25, 0, "Invalid Target")
                 stdscr.refresh()
                 stdscr.getch() # Wait for user to press a key
-            elif opponentshipboard[alphabets.index(Target[0])][int(Target[-1])-1] == "X":
+            elif TargetStatus in ["<", ">", "∧", "V"]:
+                stdscr.addstr(25, 0, "You have hit your target.")
+                stdscr.refresh()
+                stdscr.getch() # Wait for user to press a key
+                opponentshipboard[alphabets.index(Target[0])][int(Target[-1])-1] = "0"
+                playerattackboard[alphabets.index(Target[0])][int(Target[-1])-1] = "H"
+                if OpponentAlive(opponentshipboard, player) != "ongoing":
+                    Attacking = False
+            elif TargetStatus == "X":
                 stdscr.addstr(25, 0, "You have hit your target.")
                 stdscr.refresh()
                 stdscr.getch() # Wait for user to press a key
