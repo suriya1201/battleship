@@ -3,9 +3,7 @@ import curses
 
 
 alphabets = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"]
-ORIENTATION ="horizontal"
-SHIP_ROW =0 
-SHIP_COLUMN=0
+
 
 def main(stdscr):
 
