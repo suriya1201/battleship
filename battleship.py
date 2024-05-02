@@ -590,8 +590,7 @@ def PlayerAttack(player, playershipboard, playerattackboard, opponentshipboard, 
                     stdscr.getch()  # Wait for user to press a key
                     playerattackboard[alphabets.index(Target[0])][int(Target[-1]) - 1] = "M"
                     Attacking = False
-        else:
-            return OpponentAlive(opponentshipboard, player)
+        return OpponentAlive(opponentshipboard, player)
 
 
 def ComputerAttack(
