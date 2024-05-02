@@ -8,6 +8,7 @@ alphabets = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"]
 
 def main(stdscr):
     # Turn on the visibility of typed characters
+    test()
     curses.echo()
     # curses.curs_set(0)  # Hide the cursor
     stdscr.clear()  # Clear the terminal screen
@@ -685,6 +686,9 @@ def gamestart(
             if status == "Computer":
                 print("Computer won.")
 
+def test():
+    assert OpponentAlive([["-","X","-"],["-","-","-"]], "Player 1") == "ongoing"
+    assert OpponentAlive([["-","-","-"],["-","-","-"]], "Player 2") == "Player 2"
 
 if __name__ == "__main__":
     curses.wrapper(main)
