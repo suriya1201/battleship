@@ -545,8 +545,8 @@ def PlayerAttack(player, playershipboard, playerattackboard, opponentshipboard, 
         stdscr.addstr(0, 0, player)
         stdscr.addstr(1, 0, "Ships")
         PrintGrid(playershipboard, stdscr, offset_y=2)
-        stdscr.addstr(13, 0, "Attack")
-        PrintGrid(playerattackboard, stdscr, offset_y=14)
+        stdscr.addstr(12, 0, "Attack")
+        PrintGrid(playerattackboard, stdscr, offset_y=13)
         stdscr.refresh()
 
         # Get user input for the target location
