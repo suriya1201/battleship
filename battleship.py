@@ -1,3 +1,4 @@
+
 import curses
 import random
 
@@ -549,12 +550,12 @@ def PlayerAttack(player, playershipboard, playerattackboard, opponentshipboard, 
             stdscr.addstr(13, 0, "Attack")
             PrintGrid(playerattackboard, stdscr, offset_y=14)
             stdscr.refresh()
-    
+
             # Get user input for the target location
             stdscr.addstr(24, 0, "Enter a location to attack: ")
             stdscr.refresh()
             Target = stdscr.getstr().decode().strip().upper()  # Convert input to uppercase
-    
+
             if Target not in validoptions:
                 stdscr.addstr(25, 0, "Invalid Target")
                 stdscr.refresh()
@@ -576,21 +577,23 @@ def PlayerAttack(player, playershipboard, playerattackboard, opponentshipboard, 
                     stdscr.getch()  # Wait for user to press a key
                     opponentshipboard[alphabets.index(Target[0])][int(Target[-1]) - 1] = "0"
                     playerattackboard[alphabets.index(Target[0])][int(Target[-1]) - 1] = "H"
-    
+
                 elif TargetStatus == "X":
                     stdscr.addstr(25, 0, "You have hit your target.")
                     stdscr.refresh()
                     stdscr.getch()  # Wait for user to press a key
                     opponentshipboard[alphabets.index(Target[0])][int(Target[-1]) - 1] = "0"
                     playerattackboard[alphabets.index(Target[0])][int(Target[-1]) - 1] = "H"
-    
+
                 else:
                     stdscr.addstr(25, 0, "You missed...")
                     stdscr.refresh()
                     stdscr.getch()  # Wait for user to press a key
                     playerattackboard[alphabets.index(Target[0])][int(Target[-1]) - 1] = "M"
                     Attacking = False
-        return OpponentAlive(opponentshipboard, player)
+        else:
+            return OpponentAlive(opponentshipboard, player)
+    return OpponentAlive(opponentshipboard, player)
 
 
 def ComputerAttack(
@@ -640,7 +643,7 @@ def ComputerAttack(
 
 def OpponentAlive(opponentshipboard, player):
     for row in opponentshipboard:
-        if "X" in row:
+        if "X" in row or "V" in row or "<" in row or ">" in row or "∧" in row:
             return "ongoing"
     return player
 
