@@ -541,55 +541,57 @@ def PlayerAttack(player, playershipboard, playerattackboard, opponentshipboard, 
     Attacking = True
     validoptions = createvalidoptions()
     while Attacking:
-        stdscr.clear()  # Clear the screen
-        stdscr.addstr(0, 0, player)
-        stdscr.addstr(1, 0, "Ships")
-        PrintGrid(playershipboard, stdscr, offset_y=2)
-        stdscr.addstr(13, 0, "Attack")
-        PrintGrid(playerattackboard, stdscr, offset_y=14)
-        stdscr.refresh()
-
-        # Get user input for the target location
-        stdscr.addstr(24, 0, "Enter a location to attack: ")
-        stdscr.refresh()
-        Target = stdscr.getstr().decode().strip().upper()  # Convert input to uppercase
-
-        if Target not in validoptions:
-            stdscr.addstr(25, 0, "Invalid Target")
+        if OpponentAlive(opponentshipboard,player) == "ongoing":
+            stdscr.clear()  # Clear the screen
+            stdscr.addstr(0, 0, player)
+            stdscr.addstr(1, 0, "Ships")
+            PrintGrid(playershipboard, stdscr, offset_y=2)
+            stdscr.addstr(13, 0, "Attack")
+            PrintGrid(playerattackboard, stdscr, offset_y=14)
             stdscr.refresh()
-            stdscr.getch()  # Wait for user to press a key
-        else:
-            TargetStatus = opponentshipboard[alphabets.index(Target[0])][
-                int(Target[-1]) - 1
-            ]
-            PlayerAttackStatus = playerattackboard[alphabets.index(Target[0])][
-                int(Target[-1]) - 1
-            ]
-            if TargetStatus == "0" or PlayerAttackStatus == "M":
+    
+            # Get user input for the target location
+            stdscr.addstr(24, 0, "Enter a location to attack: ")
+            stdscr.refresh()
+            Target = stdscr.getstr().decode().strip().upper()  # Convert input to uppercase
+    
+            if Target not in validoptions:
                 stdscr.addstr(25, 0, "Invalid Target")
                 stdscr.refresh()
                 stdscr.getch()  # Wait for user to press a key
-            elif TargetStatus in ["<", ">", "∧", "V"]:
-                stdscr.addstr(25, 0, "You have hit your target.")
-                stdscr.refresh()
-                stdscr.getch()  # Wait for user to press a key
-                opponentshipboard[alphabets.index(Target[0])][int(Target[-1]) - 1] = "0"
-                playerattackboard[alphabets.index(Target[0])][int(Target[-1]) - 1] = "H"
-
-            elif TargetStatus == "X":
-                stdscr.addstr(25, 0, "You have hit your target.")
-                stdscr.refresh()
-                stdscr.getch()  # Wait for user to press a key
-                opponentshipboard[alphabets.index(Target[0])][int(Target[-1]) - 1] = "0"
-                playerattackboard[alphabets.index(Target[0])][int(Target[-1]) - 1] = "H"
-
             else:
-                stdscr.addstr(25, 0, "You missed...")
-                stdscr.refresh()
-                stdscr.getch()  # Wait for user to press a key
-                playerattackboard[alphabets.index(Target[0])][int(Target[-1]) - 1] = "M"
-                Attacking = False
-    return OpponentAlive(opponentshipboard, player)
+                TargetStatus = opponentshipboard[alphabets.index(Target[0])][
+                    int(Target[-1]) - 1
+                ]
+                PlayerAttackStatus = playerattackboard[alphabets.index(Target[0])][
+                    int(Target[-1]) - 1
+                ]
+                if TargetStatus == "0" or PlayerAttackStatus == "M":
+                    stdscr.addstr(25, 0, "Invalid Target")
+                    stdscr.refresh()
+                    stdscr.getch()  # Wait for user to press a key
+                elif TargetStatus in ["<", ">", "∧", "V"]:
+                    stdscr.addstr(25, 0, "You have hit your target.")
+                    stdscr.refresh()
+                    stdscr.getch()  # Wait for user to press a key
+                    opponentshipboard[alphabets.index(Target[0])][int(Target[-1]) - 1] = "0"
+                    playerattackboard[alphabets.index(Target[0])][int(Target[-1]) - 1] = "H"
+    
+                elif TargetStatus == "X":
+                    stdscr.addstr(25, 0, "You have hit your target.")
+                    stdscr.refresh()
+                    stdscr.getch()  # Wait for user to press a key
+                    opponentshipboard[alphabets.index(Target[0])][int(Target[-1]) - 1] = "0"
+                    playerattackboard[alphabets.index(Target[0])][int(Target[-1]) - 1] = "H"
+    
+                else:
+                    stdscr.addstr(25, 0, "You missed...")
+                    stdscr.refresh()
+                    stdscr.getch()  # Wait for user to press a key
+                    playerattackboard[alphabets.index(Target[0])][int(Target[-1]) - 1] = "M"
+                    Attacking = False
+        else:
+            return OpponentAlive(opponentshipboard, player)
 
 
 def ComputerAttack(
